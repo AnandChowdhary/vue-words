@@ -39,6 +39,7 @@
 					this.$root.toast("Please enter a password");
 					return;
 				}
+				this.show = false;
 				fetch(constants.API_URL, {
 					method: "POST",
 					body: JSON.stringify({
@@ -61,6 +62,9 @@
 						}
 					}
 				})
+				.finally(() => {
+					this.show = false;
+				});
 			}
 		}
 	}

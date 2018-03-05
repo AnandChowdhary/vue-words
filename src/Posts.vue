@@ -4,6 +4,9 @@
 		<b-container>
 			<b-row class="justify-content-center mt-5">
 				<b-col md="6">
+					<div v-if="loading">
+						Loading...
+					</div>
 					<table class="table">
 						<tbody>
 							<tr v-for="post in posts" v-bind:key="post.id">
@@ -27,7 +30,8 @@
 	export default {
 		data: () => {
 			return {
-				posts: null
+				posts: null,
+				loading: true,
 			}
 		},
 		mounted() {
@@ -49,6 +53,9 @@
 					this.posts = response.posts;
 				}
 			})
+			.finally(() => {
+				this.loading = false;
+			});
 		}
 	}
 </script>

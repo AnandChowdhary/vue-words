@@ -7,6 +7,9 @@
 				<b-col md="7">
 					<h1 class="h4 mb-4">{{post.title}}</h1>
 					<div v-html="post.body"></div>
+					<div v-if="loading">
+						Loading...
+					</div>
 					<footer class="mt-5">
 						<router-link class="btn btn-outline-primary mr-2" :to="'/write/' + $route.params.id">Edit</router-link>
 						<b-btn @click.prevent="deletePost" variant="outline-danger">Delete</b-btn>
@@ -26,6 +29,7 @@
 	export default {
 		data: () => {
 			return {
+				loading: true,
 				post: {}
 			}
 		},
@@ -48,6 +52,9 @@
 					this.post = response.post;
 				}
 			})
+			.finally(() => {
+				this.loading = false;
+			});
 		},
 		methods: {
 			deletePost() {
