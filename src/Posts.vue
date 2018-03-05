@@ -1,14 +1,20 @@
 <template>
 	<div>
 		<Nav />
-		<p>Posts</p>
-		<ul>
-			<li v-for="post in posts" v-bind:key="post.id">
-				<router-link :to="'/post/' + post.id">
-					{{post.title}} &middot; {{post.date.split(" ")[0]}}
-				</router-link>
-			</li>
-		</ul>
+		<b-container>
+			<b-row class="justify-content-center mt-5">
+				<b-col md="6">
+					<table class="table">
+						<tbody>
+							<tr v-for="post in posts" v-bind:key="post.id">
+								<td style="width: 30%">{{post.date.split(" ")[0]}}</td>
+								<td><router-link :to="'/post/' + post.id">{{post.title}}</router-link></td>
+							</tr>
+						</tbody>
+					</table>
+				</b-col>
+			</b-row>
+		</b-container>
 	</div>
 </template>
 

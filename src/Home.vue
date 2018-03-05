@@ -1,14 +1,21 @@
 <template>
-	<b-form @submit.prevent="login">
-		<b-form-group label="Password">
-			<b-form-input type="password" v-model="password" v-bind:disabled="!show" placeholder="Enter your password" autofocus />
-			<b-button type="submit" variant="primary">
-				<span v-if="show">Login</span>
-				<span v-else>Logging in...</span>
-				<i class="fas fa-arrow-right ml-2"></i>
-			</b-button>
-		</b-form-group>
-	</b-form>
+	<b-container>
+		<b-row class="justify-content-center mt-5">
+			<b-col md="4">
+				<h1 class="text-center h3 mb-5">Words</h1>
+				<b-form @submit.prevent="login">
+					<b-form-group label="Password">
+						<b-form-input type="password" v-model="password" v-bind:disabled="!show" placeholder="Enter your password" autofocus />
+						<b-button type="submit" variant="primary" class="mt-3">
+							<span v-if="show">Login</span>
+							<span v-else>Logging in...</span>
+							<i class="fas fa-arrow-right ml-2"></i>
+						</b-button>
+					</b-form-group>
+				</b-form>
+			</b-col>
+		</b-row>
+	</b-container>
 </template>
 
 <script>
@@ -28,6 +35,10 @@
 		},
 		methods: {
 			login() {
+				if (!this.password) {
+					this.$root.toast("Please enter a password");
+					return;
+				}
 				fetch(constants.API_URL, {
 					method: "POST",
 					body: JSON.stringify({

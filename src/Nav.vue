@@ -1,11 +1,12 @@
 <template>
-	<div>
-		<ul>
-			<li><router-link to="/read">Read</router-link></li>		
-			<li><router-link to="/write">Write</router-link></li>		
-			<li><a href="#" @click.prevent="downloadBackup">Download backup</a></li>		
-			<li><a href="#" @click.prevent="logout">Logout</a></li>		
-		</ul>
+	<div class="text-center">
+		<h1 class="text-center h3 mb-2 mt-5">Words</h1>
+		<b-nav class="justify-content-center mb-5">
+			<b-nav-item><router-link to="/read">Read</router-link></b-nav-item>
+			<b-nav-item><router-link to="/write">Write</router-link></b-nav-item>
+			<b-nav-item><a href="#" @click.prevent="downloadBackup">Backup</a></b-nav-item>
+			<b-nav-item><a href="#" @click.prevent="logout">Logout</a></b-nav-item>
+		</b-nav>
 	</div>
 </template>
 

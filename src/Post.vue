@@ -1,12 +1,19 @@
 <template>
 	<div>
 		<Nav />
-		<p>{{post.title}}</p>
-		<div v-html="post.body"></div>
-		<footer>
-			<router-link class="btn btn-outline-primary" :to="'/write/' + $route.params.id">Edit</router-link>
-			<b-btn @click.prevent="deletePost" variant="outline-danger">Delete</b-btn>
-		</footer>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css">
+		<b-container>
+			<b-row class="justify-content-center mt-5">
+				<b-col md="7">
+					<h1 class="h4 mb-4">{{post.title}}</h1>
+					<div v-html="post.body"></div>
+					<footer class="mt-5">
+						<router-link class="btn btn-outline-primary mr-2" :to="'/write/' + $route.params.id">Edit</router-link>
+						<b-btn @click.prevent="deletePost" variant="outline-danger">Delete</b-btn>
+					</footer>
+				</b-col>
+			</b-row>
+		</b-container>
 	</div>
 </template>
 

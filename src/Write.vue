@@ -2,17 +2,23 @@
 	<div>
 		<Nav />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css">
-		<b-form @submit.prevent="publish">
-			<b-form-group label="Title">
-				<b-form-input type="text" v-model="title" v-bind:disabled="!show" placeholder="Enter the title for these words..." autofocus />
-			</b-form-group>
-			<medium-editor :text="body" v-on:edit="processEditOperation" custom-tag="div" />
-			<b-button type="submit" variant="primary">
-				<span v-if="show">Publish</span>
-				<span v-else>Publishing...</span>
-				<i class="fas fa-arrow-right ml-2"></i>
-			</b-button>
-		</b-form>
+		<b-container>
+			<b-row class="justify-content-center mt-5">
+				<b-col md="7">
+					<b-form @submit.prevent="publish">
+						<b-form-group>
+							<b-form-input type="text" v-model="title" v-bind:disabled="!show" placeholder="Enter the title for these words..." autofocus />
+						</b-form-group>
+						<medium-editor :text="body" v-on:edit="processEditOperation" custom-tag="div" />
+						<b-button type="submit" variant="primary" class="mt-3">
+							<span v-if="show">Publish</span>
+							<span v-else>Publishing...</span>
+							<i class="fas fa-arrow-right ml-2"></i>
+						</b-button>
+					</b-form>
+				</b-col>
+			</b-row>
+		</b-container>
 	</div>
 </template>
 
@@ -80,7 +86,11 @@
 					if (response.error) {
 						this.$root.toast(response.error);
 					} else {
-						this.$root.toast("Updated!");
+						if (this.$route.params.id) {
+							this.$root.toast("Updated!");
+						} else {
+							this.$root.toast("Published!");
+						}
 						router.push("/read");
 					}
 				})
@@ -91,3 +101,19 @@
 		}
 	}
 </script>
+
+<style scoped>
+	.medium-editor-element {
+		outline: none;
+	}
+	.form-control {
+		font: inherit;
+		color: inherit;
+		padding: 0;
+		outline: none;
+		border: none;
+		box-shadow: none;
+		margin-bottom: 1rem;
+		font-size: 135%;
+	}
+</style>
