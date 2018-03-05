@@ -49,7 +49,7 @@
 						"Content-Type": "application/json"
 					})
 				}).then(res => res.json())
-				.catch(response => { this.$root.toast("An error occurred"); })
+				.catch(response => { localStorage.removeItem("token"); router.push("/"); })
 				.then(response => {
 					if (response.error) {
 						this.$root.toast(response.error);
