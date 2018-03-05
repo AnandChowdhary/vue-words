@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css?family=Muli:400,700");
+
+::selection {
+	background-color: #eee;
+}
+
+body {
+	font-family: "Muli", sans-serif;
+	font-size: 1.025rem;
+}
+
+.fade-enter-active, .fade-leave-active {
+	transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+
+img {
+	max-width: 100%;
+}

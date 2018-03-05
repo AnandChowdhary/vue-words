@@ -1,0 +1,26 @@
+{
+  "name": "words",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Anand Chowdhary <anandchowdhary@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "node-sass": "^4.7.2",
+    "offline-plugin": "^4.9.0",
+    "poi": "^9.6.13",
+    "sass-loader": "^6.0.6"
+  },
+  "dependencies": {
+    "bootstrap-vue": "^2.0.0-rc.1",
+    "firebase": "^4.10.1",
+    "load-js": "^3.0.2",
+    "smartquotes": "^2.3.1",
+    "uploadcare-widget": "^3.2.2",
+    "vue-router": "^3.0.1",
+    "vue-toasted": "^1.1.24",
+    "vue2-google-maps": "^0.8.8",
+    "vue2-medium-editor": "^1.1.4",
+    "vuefire": "^1.4.5",
+    "whatwg-fetch": "^2.0.3"
+  }
+}

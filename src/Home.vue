@@ -1,0 +1,56 @@
+<template>
+	<b-form @submit.prevent="login">
+		<b-form-group label="Password">
+			<b-form-input type="password" v-model="password" v-bind:disabled="!show" placeholder="Enter your password" autofocus />
+			<b-button type="submit" variant="primary">
+				<span v-if="show">Login</span>
+				<span v-else>Logging in...</span>
+				<i class="fas fa-arrow-right ml-2"></i>
+			</b-button>
+		</b-form-group>
+	</b-form>
+</template>
+
+<script>
+	import router from "./router";
+	import constants from "./constants";
+	export default {
+		data: () => {
+			return {
+				password: "",
+				show: true
+			}
+		},
+		mounted() {
+			if (localStorage.token) {
+				router.push("/read");
+			}
+		},
+		methods: {
+			login() {
+				fetch(constants.API_URL, {
+					method: "POST",
+					body: JSON.stringify({
+						password: this.password
+					}), 
+					headers: new Headers({
+						"Content-Type": "application/json"
+					})
+				}).then(res => res.json())
+				.catch(response => { this.$root.toast("An error occurred"); })
+				.then(response => {
+					if (response.error) {
+						this.$root.toast(response.error);
+					} else {
+						if (response.token) {
+							localStorage.setItem("token", response.token);
+							router.push("/read");
+						} else {
+							this.$root.toast("An error occurred");
+						}
+					}
+				})
+			}
+		}
+	}
+</script>
