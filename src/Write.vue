@@ -7,9 +7,12 @@
 				<b-col md="7">
 					<b-form @submit.prevent="publish">
 						<b-form-group>
-							<b-form-input type="text" v-model="title" v-bind:disabled="!show" placeholder="Enter the title for these words..." autofocus />
+							<b-form-input type="text" v-model="title" v-bind:disabled="!show" class="heading" placeholder="Enter the title for these words..." autofocus />
 						</b-form-group>
 						<medium-editor :text="body" v-on:edit="processEditOperation" custom-tag="div" />
+						<div class="mt-3" v-if="date">
+							<b-form-input v-model="date" type="text" />
+						</div>
 						<b-button type="submit" variant="primary" class="mt-3">
 							<span v-if="show">Publish</span>
 							<span v-else>Publishing...</span>
@@ -32,6 +35,7 @@
 			return {
 				body: "",
 				title: "",
+				date: "",
 				show: true
 			}
 		},
@@ -53,6 +57,7 @@
 						this.$root.toast(response.error);
 					} else {
 						this.title = response.post.title;
+						this.date = response.post.date;
 						this.body = response.post.body;
 					}
 				})
@@ -65,17 +70,24 @@
 					return;
 				}
 				let fetchURL = constants.API_URL;
+				let postData;
 				if (this.$route.params.id) {
 					fetchURL += "post/" + this.$route.params.id;
+					postData = {
+						title: this.title,
+						body: this.body,
+						date: this.date,
+					};
 				} else {
 					fetchURL += "posts";
+					postData = {
+						title: this.title,
+						body: this.body
+					};
 				}
 				fetch(fetchURL, {
 					method: "PUT",
-					body: JSON.stringify({
-						title: this.title,
-						body: this.body
-					}),
+					body: JSON.stringify(postData),
 					headers: new Headers({
 						"Content-Type": "application/json",
 						"token": localStorage.token
@@ -106,7 +118,7 @@
 	.medium-editor-element {
 		outline: none;
 	}
-	.form-control {
+	.form-control.heading {
 		font: inherit;
 		color: inherit;
 		padding: 0;

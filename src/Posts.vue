@@ -27,6 +27,12 @@
 	import router from "./router";
 	import constants from "./constants";
 	Vue.component("Nav", Nav);
+	const sortByKey = (array, key) => {
+		return array.sort(function(a, b) {
+			var x = a[key]; var y = b[key];
+			return -1 * ((x < y) ? -1 : ((x > y) ? 1 : 0));
+		});
+	}
 	export default {
 		data: () => {
 			return {
@@ -50,7 +56,7 @@
 				if (response.error) {
 					this.$root.toast(response.error);
 				} else {
-					this.posts = response.posts;
+					this.posts = sortByKey(response.posts, "date");
 				}
 			})
 			.finally(() => {
