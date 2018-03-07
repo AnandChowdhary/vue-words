@@ -36,7 +36,7 @@
 		methods: {
 			login() {
 				if (!this.password) {
-					this.$root.toast("Please enter a password");
+					this.$root.toast("Please enter a password ✋");
 					return;
 				}
 				this.show = false;
@@ -56,6 +56,7 @@
 					} else {
 						if (response.token) {
 							localStorage.setItem("token", response.token);
+							this.$root.toast("Welcome back! 👍");
 							router.push("/read");
 						} else {
 							this.$root.toast("An error occurred");
@@ -63,7 +64,8 @@
 					}
 				})
 				.finally(() => {
-					this.show = false;
+					this.show = true;
+					this.password = "";
 				});
 			}
 		}

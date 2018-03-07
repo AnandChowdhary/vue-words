@@ -96,7 +96,13 @@
 				.catch(response => { localStorage.removeItem("token"); router.push("/"); })
 				.then(response => {
 					if (response.error) {
-						this.$root.toast(response.error);
+						if (response.error === "Unauthenticated") {
+							localStorage.removeItem("token");
+							router.push("/");
+							this.$root.toast("Please log in! ✋");
+						} else {
+							this.$root.toast(response.error);
+						}
 					} else {
 						if (this.$route.params.id) {
 							this.$root.toast("Updated!");

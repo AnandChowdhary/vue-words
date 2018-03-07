@@ -28,12 +28,14 @@
 						"token": localStorage.token
 					})
 				}).then(res => res.json())
-				.catch(() => { this.$root.toast("An error occurred"); })
+				.catch(() => {
+					this.$root.toast("An error occurred in creating a backup 😨");
+				})
 				.then(response => {
 					if (response.error) {
 						this.$root.toast(response.error);
 					} else {
-						this.$root.toast("Downloading...");
+						this.$root.toast("Downloading... 👍");
 						window.open(response.url);
 					}
 				})

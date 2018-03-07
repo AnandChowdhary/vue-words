@@ -47,7 +47,13 @@
 			.catch(response => { localStorage.removeItem("token"); router.push("/"); })
 			.then(response => {
 				if (response.error) {
-					this.$root.toast(response.error);
+					if (response.error === "Unauthenticated") {
+						localStorage.removeItem("token");
+						router.push("/");
+						this.$root.toast("Please log in! ✋");
+					} else {
+						this.$root.toast(response.error);
+					}
 				} else {
 					this.post = response.post;
 				}
@@ -58,7 +64,7 @@
 		},
 		methods: {
 			deletePost() {
-				const confirmed = confirm("Are you sure you want to delete this post? This action is cannot be undone.");
+				const confirmed = confirm("Are you sure you want to delete this post? This action is cannot be undone. 🗑 ✋");
 				if (confirmed) {
 					fetch(constants.API_URL + "post/" + this.$route.params.id, {
 						method: "DELETE",
@@ -72,7 +78,7 @@
 						if (response.error) {
 							this.$root.toast(response.error);
 						} else {
-							this.$root.toast("Deleted!");
+							this.$root.toast("Deleted! 🗑");
 							router.push("/read");
 						}
 					})
